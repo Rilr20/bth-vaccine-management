@@ -1,0 +1,41 @@
+@media only screen and (max-width: 600px) {
+    h1 {
+        text-align: center;
+    }
+
+    .item {
+        flex-flow: row wrap;
+    }
+
+    .book-items {
+        grid-template-columns: 1fr;
+    }
+    .nav {
+        height: 100%;
+        padding-bottom: 15px;
+    }
+    .nav ul {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .bild {
+        width: 100%;
+    }
+
+    .dice-box {
+        flex-flow: row wrap;
+        margin-top: 0.5em;
+    }
+
+    .dice-input input {
+        display: block;
+        margin: auto;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+
+    .highscore {
+        width: 100%;
+    }
+}
