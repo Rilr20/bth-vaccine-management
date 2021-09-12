@@ -17,10 +17,18 @@
         <ul>
             <li><p>Vaccination Management</p></li>
             <li><a class="{{Request::path() == "/" ? 'active' : 'inactive'}}" href="{{url('/')}}">Main Page</a></li>
+            @if (Auth::user())
+                <li><a class="{{Request::path() == "/staff" ? 'active' : 'inactive'}}" href="{{url('/staff')}}">Staff</a></li>
+            @endif
         </ul>
         <ul>
             <li><p></p></li>
-            <li><a class="{{Request::path() == "login" ? 'active' : 'inactive'}}" href="{{url("/login")}}">Login</a></li>
+            @if (Auth::user())
+                    <li class="no-link">User: {{Auth::user()->fullname}}</li>
+                    <li><a href="{{url('/login/logout')}}">Logout</a></li>    
+            @else
+                <li  class="{{Request::path() == "login" ? 'active' : ''}}"><a href="{{url('/login')}}">Login</a></li>
+            @endif
         </ul>
     </nav>
     <main class="main">
