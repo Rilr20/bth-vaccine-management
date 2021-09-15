@@ -38,7 +38,33 @@
         </ul>
     </nav>
     <main class="main">
-        @yield('content')
+        <div class="content">
+
+            <div class="staff">
+
+                <div class="title">
+                    {{-- <h1>Staff Page</h1> --}}
+                </div>
+
+                <div class="link-list">
+                    <h2>Staff</h2>
+                    <a href="{{url("/staff/list")}}">Staff List</a>
+                    {{-- <h2>Vaccine info</h2> --}}
+                    <a href="#">Vaccine Info</a>
+                    {{-- <h2>New Vaccination</h2> --}}
+                    <a href="">New Vaccination</a>
+                    @if(Auth::user()->is_admin == 1)
+                    {{-- <h1>Admin Stuff hidden if not admin</h1> --}}
+                    <h2>Admin</h2>
+                    <a href="{{url("/staff/create")}}">Create New Staff</a>
+                    <a href="{{url("/staff/admin")}}">Staff List</a>
+                @endif
+                </div>
+
+                @yield('content')
+
+            </div>
+        </div>
     </main>
     <footer class="footer">
         <p class="center">Vaccination Management &copy; {{ date('Y')}}</p>

@@ -2,7 +2,7 @@
 @section('title', $title ?? "no title")
 @section('content')
 <div class="staff-content">
-    <h1>{{Auth::user()->fullname}}</h1>
-    <p>Created at: {{Auth::user()->created_at}}</p>
+    <h1 class="error-message">404 Not Found</h1>
+    
 </div>
 @stop

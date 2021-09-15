@@ -1,0 +1,85 @@
+.staff {
+    margin-top: 2em;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    a,
+    a:visited {
+        color: black;
+        font-size: 18pt;
+        display: block;
+        margin-left: 1em;
+    }
+    .link-list {
+        width: 100%;
+        text-align: left;
+    }
+    .staff-content {
+        width: 100%;
+        text-align: center;
+    }
+    .title {
+        // grid-column: 100%;
+        // grid-template-columns: 2fr;
+        grid-column: span 2;
+    }
+}
+
+.content .staff-content .h2-link {
+    display: inline;
+    margin-left: 0.5em;
+}
+
+.staff h2 .delete {
+    color: rgb(202, 19, 19);
+}
+
+.button-link {
+    border: none;
+    font-size: 16pt;
+    text-decoration: 2px underline;
+    cursor: pointer;
+}
+
+.error-message {
+    text-decoration: 2px underline #241f1f;
+}
+
+.staff-list {
+    // background-color: orange;
+    border: 1px solid black;
+    margin: {
+        left: auto;
+        right: auto;
+        bottom: 1em;
+    }
+    font-size: 14pt;
+    padding: 0.5em;
+    display: flex;
+    width: 30vw;
+    .left-box {
+        // width: 50%;
+        aspect-ratio: 1/1;
+        width: 10%;
+        // background-color: orangered;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-right: 1px solid black;
+    }
+    .right-box {
+        // background-color: blue;
+        width: 100%;
+        text-align: left;
+        padding-left: 1em;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .admin {
+        width: 20px;
+        height: 20px;
+    }
+    .staff-link {
+        font-size: 14pt;
+    }
+}
