@@ -123,6 +123,8 @@ body {
     .input-div {
         display: grid;
     }
+
+    
     .input {
         // padding: 2.5em;
         padding: {
@@ -146,6 +148,25 @@ body {
     }
     .login-button:hover {
         background-color: darken($portage, 10%);
+    }
+}
+
+.login-form-div .input-div-flex {
+    display: flex;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    padding-left: .5em;
+    border: #0d348b 2px solid;
+    border-radius: 5px;
+    margin-bottom: 1.5em;
+    height: 25px;
+    .checkbox {
+        height: 75%;
+        margin-right: 1em;
+    }
+    .checkbox-label {
+        width: 100%;
+        text-align: left;
     }
 }
 

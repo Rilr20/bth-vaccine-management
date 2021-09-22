@@ -83,3 +83,14 @@
         font-size: 14pt;
     }
 }
+
+.user-div {
+    margin: auto;
+    width: 30%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    .user-form {
+
+    }
+}
