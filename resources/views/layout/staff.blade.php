@@ -50,9 +50,9 @@
                     <h2>Staff</h2>
                     <a href="{{url("/staff/list")}}">Staff List</a>
                     {{-- <h2>Vaccine info</h2> --}}
-                    <a href="#">Vaccine Info</a>
+                    {{-- <a href="#">Vaccine Info</a> --}}
                     {{-- <h2>New Vaccination</h2> --}}
-                    <a href="">New Vaccination</a>
+                    {{-- <a href="">New Vaccination</a> --}}
                     @if(Auth::user()->is_admin == 1)
                     {{-- <h1>Admin Stuff hidden if not admin</h1> --}}
                     <h2>Admin</h2>

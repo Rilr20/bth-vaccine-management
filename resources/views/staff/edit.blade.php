@@ -14,9 +14,9 @@
     @endphp
     
     {{-- @foreach ($staffs as $staff) --}}
-        <div class="Staff">
+        <div class="Staff login-form-div">
             {{$error}}
-            <form action="{{url("/staff/$staff->id")}}" method="POST">
+            <form class="login-form" action="{{url("/staff/$staff->id")}}" method="POST">
             {{-- <form action="/staff/{{$staff->id}}" method="POST"> --}}
                 @csrf
                 @method('PUT')
@@ -31,7 +31,7 @@
                     <div class="input-div">
                     <input class="input" type="email" name="email" value="{{$staff->email}}" placeholder="email@email.com">
                     </div>
-                    <div class="input-div">
+                    <div class="input-div-flex">
                         <input class="checkbox input" type="checkbox" name="is_admin" id="is_admin">
                         <label class="checkbox-label" value="1" for="is_admin">Admin</label>
                     </div>
@@ -41,7 +41,7 @@
                 @endif
 
                 <div class="input-div">
-                    <input class="form-button" type="submit" value="Send">
+                    <input class="form-button login-button" type="submit" value="Send">
                 </div>
             </form>
         </div>

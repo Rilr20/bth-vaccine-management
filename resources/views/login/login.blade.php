@@ -7,7 +7,7 @@
 <div class="login-form-div">
         <h1 class="center">Login</h1>
         <div class="error">
-            <p class="center red">{{$wrong}}</p>
+            <p class="center red-colour">{{$wrong}}</p>
         </div>
         <form class="login-form" action="{{url('/login/checklogin')}}" method="POST">
             @csrf
