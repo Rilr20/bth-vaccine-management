@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StaffController;
-
+use App\Http\Controllers\IndexController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,9 +15,16 @@ use App\Http\Controllers\StaffController;
 |
 */
 
-Route::get('/', function () {
-    return view('frontpage', ["title"=>"Frontpage"]);
-});
+// Route::get('/', function () {
+//     $url = "https://covid.ourworldindata.org/data/owid-covid-data.json";
+//     $json = file_get_contents($url);
+//     // echo $json;
+//     $obj = json_decode($json);
+//     dd($obj->SWE);
+//     return view('frontpage', ["title"=>"Frontpage"]);
+// });
+
+Route::get("/", "App\Http\Controllers\IndexController@index");
 
 // Route::get('/login', function () {
 //     return view('login.login', ["title" => "Login"]);

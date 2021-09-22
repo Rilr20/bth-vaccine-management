@@ -179,10 +179,16 @@ class StaffController extends Controller
         //
         // dd($id);
         // $staff = User::find($id);
-        $staff->update([
-            'deleted_at'=> Carbon::now()
-        ]);
-        return redirect("/staff");
+        if($staff->deleted_at == null) {
+            $staff->update([
+                'deleted_at'=> Carbon::now()
+            ]);
+        } else {
+            $staff->update([
+                'deleted_at'=>null
+            ]);
+        }
+        return redirect("/staff/admin");
         // dd($staff);
     }
     /**
@@ -193,7 +199,7 @@ class StaffController extends Controller
     public function showall()
     {
         $this->title = $this->title . " | List";
-        $staffs = User::select("id", "fullname", "email", "is_admin", "deleted_at")->where('deleted_at', null)->get();
+        $staffs = User::select("id", "fullname", "email", "is_admin", "deleted_at")->where('deleted_at',)->get();
         return view('staff.staff', ["title"=> $this->title, "staffs"=>$staffs]);
     }
     public function showalladmin()
