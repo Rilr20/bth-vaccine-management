@@ -22,12 +22,12 @@
     </div> --}}
     <div class="vaccine-information">
         <div class="total-vacc">
-            <p>total_vaccinations: {{$vaccinations->total_vaccinations}} <span class="green-colour">+{{$vaccinations->daily_vaccinations}}</span></p>
+            <p>Total vaccinations: {{$vaccinations->total_vaccinations}} <span class="green-colour">+{{$vaccinations->daily_vaccinations}}</span></p>
         </div>
         <div class="people-vacc">
             <div class="vaccinations">
-                <p>people_vaccinated: {{$vaccinations->people_vaccinated}}</p>
-                <p>people_fully_vaccinated: {{$vaccinations->people_fully_vaccinated}}</p>
+                <p>People vaccinated: {{$vaccinations->people_vaccinated}}</p>
+                <p>People fully vaccinated: {{$vaccinations->people_fully_vaccinated}}</p>
                 {{-- <p>@php
                     echo round($vaccinations->people_fully_vaccinated / $vaccinations->people_vaccinated, 2);
                 @endphp %</p> --}}

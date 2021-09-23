@@ -32,7 +32,7 @@ class LoginController extends Controller
 
         // else {
             // return back()->with('wrong', 'Fel inloggning');
-        return view('login.login', ['wrong' => 'Fel inloggning', 'title' => 'Inloggning']);
+        return view('login.login', ['wrong' => 'Login or password is invalid', 'title' => 'Login']);
         // }
     }
     public function logout() {
