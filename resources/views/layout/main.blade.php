@@ -25,6 +25,7 @@
             <li><a class="{{Request::path() == "/" ? 'active' : 'inactive'}}" href="{{url('/')}}">Main Page</a></li>
             @if (Auth::user())
                 <li><a class="{{$staff ? 'active' : 'inactive'}}" href="{{url('/staff')}}">Staff</a></li>
+                <li><a class="{{Request::path() == "vaccine" ? 'active' : 'inactive'}}" href="{{url('/vaccine')}}">Vaccine</a></li>
             @endif
         </ul>
         <ul>
