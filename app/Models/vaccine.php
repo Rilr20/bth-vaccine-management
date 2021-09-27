@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class vaccine extends Model
 {
     use HasFactory;
-    protected $timestamp = false;
+    // protected $timestamp = false;
     /*
     CREATE TABLE vaccine (
         vaccine_id INT NOT NULL,

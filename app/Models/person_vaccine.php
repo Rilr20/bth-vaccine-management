@@ -11,12 +11,12 @@ class person_vaccine extends Model
 
     protected $dateFormat  = 'Y/m/d H:i:s';
 
-    protected $timestamp = false;
+    // protected $timestamp = false;
     /*
     CREATE TABLE person_vaccine (
         id INT AUTO_INCREMENT NOT NULL,
-        person_id INT NOT NULL,
-        staff_id INT NOT NULL,
+        patient_id INT NOT NULL,
+        staff INT NOT NULL,
         vaccine_id INT NOT NULL,
         date_taken DATETIME NOT NULL,
         expiration_date DATE NOT NULL,
@@ -33,8 +33,8 @@ class person_vaccine extends Model
      * @var string[]
      */
     protected $fillable = [
-        'person_id',
-        'staff_id',
+        'patient_id',
+        'staff',
         'vaccine_id',
         'date_taken',
         'expiration_date',

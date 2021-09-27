@@ -35,7 +35,7 @@ class patient extends Model
         'personnumber',
         'fullname',
         'phonenumber',
-        'age',
+        'birthdate',
         'gender',
         'journal',
     ];
