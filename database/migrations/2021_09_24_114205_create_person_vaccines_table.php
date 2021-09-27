@@ -20,7 +20,7 @@ class CreatePersonVaccinesTable extends Migration
             $table->unsignedBigInteger('vaccine_id');//->references('id')->on('vaccines');//foreign key
             $table->dateTime('date_taken');
             $table->date('expiration_date');
-            // $table->timestamps();
+            $table->timestamps();
             // $table->f oreignId('users_idj')->constrained();
             // $table->foreignId('staff')
             // $table->foreignId('patient')

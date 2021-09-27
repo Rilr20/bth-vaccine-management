@@ -17,17 +17,19 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->string('fullname');
+            $table->string('email');
             $table->string('password');
+            $table->boolean("is_admin");
+            $table->timestamp("deleted_at")->nullable();
             $table->timestamps();
         });
         $user = new User();
-        $user->name = "admin";
+        $user->fullname = "admin";
         $user->email = "admin";
         $user->password = Hash::make("password");
+        $user->is_admin = "1";
         $user->save();
-        
     }
 
     /**

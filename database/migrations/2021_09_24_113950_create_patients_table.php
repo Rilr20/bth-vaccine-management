@@ -18,7 +18,7 @@ class CreatePatientsTable extends Migration
             $table->id();
             $table->string('personnumber', 12)->unique();
             $table->string('fullname');
-            $table->string('phonenumber', 15);
+            $table->string('phonenumber', 15)->nullable();
             $table->date('birthdate');
             $table->string('gender');
             $table->text('journal')->nullable();
@@ -26,7 +26,7 @@ class CreatePatientsTable extends Migration
         });
         $patient = new patient();
         $patient->personnumber = '9906071234';
-        $patient->fullname = 'Jonas jonasson';
+        $patient->fullname = 'Jonas Jonasson';
         $patient->phonenumber = "+467543442526";
         $patient->birthdate = date('1999-06-24');
         $patient->gender = "Male";
