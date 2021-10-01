@@ -3,7 +3,6 @@
 @section('content')
 <div class="staff-content">
     <h1>Staff List</h1>
-
     {{-- @php
         dd($staffs);
     @endphp --}}

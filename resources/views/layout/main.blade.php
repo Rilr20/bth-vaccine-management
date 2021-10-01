@@ -27,6 +27,7 @@
                 <li><a class="{{$staff ? 'active' : 'inactive'}}" href="{{url('/staff')}}">Staff</a></li>
                 <li><a class="{{Request::path() == "vaccine" ? 'active' : 'inactive'}}" href="{{url('/vaccine')}}">Vaccine</a></li>
             @endif
+            <li><a class="{{Request::path() == "patient" ? 'active' : 'inactive'}}" href="{{url('/patient')}}">Patient</a></li>
         </ul>
         <ul>
             <li><p></p></li>

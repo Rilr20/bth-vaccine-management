@@ -37,7 +37,15 @@
             @if ($staff->deleted_at != null)
                 <h3>Deleted: {{$staff->deleted_at}}</h3>
             @endif
+           
         </div>
+         
+    </div>
+    <div class="staff-history">
+        <h3>History</h3>
+        @foreach ($history as $row)
+            <p class="history">patient {{$row->patient_id}}, vaccine {{$row->vaccine_id}}, {{$row->created_at}}</p>
+        @endforeach
     </div>
     {{-- @endforeach --}}
 </div>
