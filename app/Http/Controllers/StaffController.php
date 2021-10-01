@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\patient;
+use App\Models\person_vaccine;
 use App\Models\User;
+use App\Models\vaccine;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -101,8 +104,9 @@ class StaffController extends Controller
             $staffs = User::find($id);
             if ($staffs == null) {
                 return view("staff.error");
-            } 
-            return view('staff.update', ["title"=>$this->title, "staff"=> $staffs]);
+            }
+            $history = $this->getHistory($id);
+            return view('staff.update', ["title"=>$this->title, "staff"=> $staffs, "history"=>$history]);
         } else {
             // echo "not your id / you're not admin";
            return redirect("staff/" . $user_id);
@@ -110,7 +114,81 @@ class StaffController extends Controller
         // dd($user);
         // dd($id);
     }
-
+    private function getHistory($id) {
+        $patient_data = [];
+        $vaccine_data = [];
+        $person_vaccine = person_vaccine::select('patient_id', 'vaccine_id', 'created_at')->where('staff', $id)->orderBy('created_at', 'desc')->get();
+        // $person_vaccine = person_vaccine::se();
+        // dd($person_vaccine);
+        // echo $person_vaccine;
+        for ($i=0; $i < count($person_vaccine); $i++) { 
+            # code...
+            // foreach ($person_vaccine[$i] as $value) {
+                # code...
+                // array_push($patient_data, $this->getPatient($value->patient_id));
+                // echo $value;
+                // echo $person_vaccine[$i]->patient_id . " ";
+                $patient_ids = $this->getPatient($person_vaccine[$i]->patient_id);
+                // echo $patient_ids . " ";
+                $vaccine_name = $this->getVaccine($person_vaccine[$i]->vaccine_id);
+                array_push($patient_data, $patient_ids->personnumber);
+                array_push($vaccine_data, $vaccine_name);
+                
+                // }
+        }
+        // dd($patient_data);
+        // dd($vaccine_data);
+        $fixed = $this->fixData($person_vaccine, $patient_data, $vaccine_data);
+        // dd($patient);
+        return $fixed;
+    }
+    private function fixData($person_vaccine, $patient_data, $vaccine_data) {
+        $i = 0;
+        $j = 0;
+        // echo $patient_data[0];
+        foreach ($person_vaccine as $value) {
+        // for ($i=0; $i < count($person_vaccine); $i++) { 
+                # code...
+            // dd($person_vaccine);
+            // echo $key . " " . $value;
+            // echo $value->patient_id;
+            // echo $value->vaccine_id;
+            // dd($patient_data);
+            // foreach($patient_data as $patient) {
+            for ($j=0; $j <= $i; $j++) { 
+                // echo $patient_data[$j];
+                // echo "<br>";
+                $value->patient_id = $patient_data[$j];
+                $value->vaccine_id = $vaccine_data[$j];
+                // if ($j == $i) {
+                //     break;
+                // }
+            }
+            // foreach ($vaccine_data as $vaccine) {
+            //     $value->vaccine_id = $vaccine->vaccine_name;
+            //     $k++;
+            //     if ($k == $i) {
+            //         break;
+            //     }
+            // }
+            $i++;
+        }
+        // echo $person_vaccine;
+        // }
+        return $person_vaccine;
+    }
+    private function getPatient($id) {
+        // echo " tja ";
+        $patient = patient::select('personnumber')->where('id', $id)->first();
+        // echo $patient;
+        return $patient;
+    }
+    private function getVaccine($id) {
+        $vaccine = vaccine::select('vaccine_name', 'vaccine_type')->where('id', $id)->first();
+        // dd($vaccine->vaccine_name);
+        $text = $vaccine->vaccine_name .  " / " . $vaccine->vaccine_type;
+        return $text;
+    }
     /**
      * Show the form for editing the specified resource.
      *
