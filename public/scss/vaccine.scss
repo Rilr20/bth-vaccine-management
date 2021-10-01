@@ -1,0 +1,23 @@
+.vaccine-div {
+    display: grid;
+    width: 20vw;
+    margin: {
+        top: 1em;
+        left: auto;
+        right: auto;
+        bottom: auto;
+    };
+    grid-template-columns: 1fr 1fr;
+    p {
+        text-align: center;
+        // border: 1px solid black;
+        border-top: 1px solid black;
+        border-left: 1px solid black;
+    }
+    p:nth-child(even) {
+        border-right: 1px solid black;
+    }
+    p:nth-last-child(-n +2) {
+        border-bottom: 1px solid black;
+    }
+}

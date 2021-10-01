@@ -94,3 +94,24 @@
 
     }
 }
+.staff-history {
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: 1em;
+    padding-top: 0.2em;
+    margin: auto;
+    width: 35vw;
+    h3 {
+        margin-bottom: 0.8em;
+    }
+    .history {
+        text-align: left;
+        margin-top: 0.2em;
+        margin-bottom: 0.4em;
+        padding: {
+            left: 0.5em;
+            right: 0.5em;
+        };
+        border-bottom: 1px solid black;
+    }
+}

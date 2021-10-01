@@ -1,0 +1,28 @@
+.patients {
+    // width: 20vw;
+    display: grid;
+    grid-template-columns: 20vw 20vw 20vw 20vw;
+    .patient {
+        background-color: lighten(#e6c8a2, 2%);
+        border-radius: 5px;
+        margin: 1vw;
+        min-height: 140px;
+        border: 1px solid black;
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+    }
+    .journal {
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+        padding-left: 0.5em;
+        border-top: 1px solid black;
+    }
+    .basic-info p {
+        display: inline;
+    }
+    .basic-info {
+        padding-top: 0.5em;
+        border-bottom: 1px solid black;
+        margin-bottom: 1em;
+    }
+}

@@ -123,8 +123,17 @@ body {
     .input-div {
         display: grid;
     }
-
-    
+    .input-div .select {
+        height: 50px;
+    }
+    .input-div .textarea {
+        resize:vertical;
+        min-height: 100px;
+    }
+    label {
+        text-align: left;
+        margin-bottom: 0.5em;
+    }
     .input {
         // padding: 2.5em;
         padding: {
