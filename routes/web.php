@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\VaccineController;
+use App\Models\patient;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,6 +36,8 @@ Route::get("/", "App\Http\Controllers\IndexController@index");
 // Route::get('/staff', function () {
 //     return view('staff.index', ["title"=>"staff page"]);
 // });
+Route::resource('/patient', PatientController::class);
+Route::resource("/vaccine", VaccineController::class);
 Route::get("/staff/list", 'App\Http\Controllers\StaffController@showall');
 Route::get("/staff/admin", 'App\Http\Controllers\StaffController@showalladmin');
 Route::resource("/staff", StaffController::class);
