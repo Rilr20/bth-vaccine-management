@@ -30,7 +30,8 @@ class StaffController extends Controller
     {
         // $this->title = "staff";
         //check if logged in
-        return view('staff.index', ["title"=>$this->title]);
+        $history = $this->getHistory(Auth::User()->id);
+        return view('staff.index', ["title"=>$this->title, "history"=>$history]);
     }
 
     /**
