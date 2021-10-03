@@ -65,8 +65,12 @@ class VaccineController extends Controller
                     // echo "create new patient then give vaccine";
                     //works :D
                     $patient_id = $this->createPatient($request);
-                    // dd($patient_id);
-                    $this->giveVaccine($request, $patient_id);
+                // dd($patient_id);
+                    if ($request->input('vaccine_id') != null) {
+                        $this->giveVaccine($request, $patient_id);
+                    } else {
+                        return view('vaccine.create', ["title" => $this->title, "vaccines" => $vaccines, "error"=>"No Vaccine Selected"]);
+                    }
                 } else {
                 // echo "redirect and say error patient info not filled in";
                 //works :D
@@ -80,7 +84,11 @@ class VaccineController extends Controller
             // $patient_id = patient::Select('id')->Where('personnumber', $request->input('personnumber')->get());
             $patient_id = patient::select('id')->where('personnumber', $request->input('personnumber'))->first();
             // dd($patient_id->id);
-            $this->giveVaccine($request, $patient_id);
+            if ($request->input('vaccine_id') != null) {
+                $this->giveVaccine($request, $patient_id);
+            } else {
+                return view('vaccine.create', ["title" => $this->title, "vaccines" => $vaccines, "error"=>"No Vaccine Selected"]);
+            }
             
         }
         $this->title = $this->title . " | Create";
@@ -108,6 +116,7 @@ class VaccineController extends Controller
         // dd($data->input());
         // dd($patient_id);
         $today = Carbon::today();
+        dd($data->input('vaccine_id'));
         // dd($today);
         // dd();
         // echo $patient_id->id,
