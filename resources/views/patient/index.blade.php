@@ -25,6 +25,7 @@
                 </p>
             </div>
         </div> --}}
+
         @foreach ($patients as $patient)
             <div class="patient">
                 <div class="basic-info">
@@ -34,8 +35,27 @@
                 <p>Gender: {{$patient->gender}}</p>
                 <p>Phone: {{$patient->phonenumber}}</p>
                 <p>DoB: {{$patient->birthdate}}</p>
+                
                 <div class="journal">
-                    <p>{{$patient->journal}}</p>
+                    <div class="vaccines">
+                        @foreach ($vaccinations as $vaccination) {{--person_vaccine--}}
+                            @if ($vaccination->patient_id == $patient->id) 
+                                @foreach ($vaccines as $vaccine) {{--vaccine--}}
+                                    @if ($vaccination->vaccine_id == $vaccine->id)
+                                        <p>{{$vaccine->vaccine_name}} | {{$vaccine->vaccine_type}} </p>
+                                        <p class="date-text">Date taken {{substr($vaccination->created_at, 0, 10)}}</p>
+                                    @endif
+                                @endforeach
+                            @endif
+                        @endforeach
+                    </div>
+                    @if ($patient->journal !== null)
+                        <p>{{$patient->journal}}</p>
+                        
+                    @else
+                        <p>Journal is empty</p>
+                    @endif
+                    
                 </div>
             </div>
         @endforeach    
