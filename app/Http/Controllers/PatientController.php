@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\patient;
+use App\Models\person_vaccine;
+use App\Models\vaccine;
 use Illuminate\Http\Request;
 
 class PatientController extends Controller
@@ -18,7 +20,9 @@ class PatientController extends Controller
     {
         //
         $patients = patient::all();
-        return view('patient.index', ["title"=>$this->title, "patients"=>$patients]);
+        $vaccinations = person_vaccine::all();
+        $vaccines = vaccine::all();
+        return view('patient.index', ["title"=>$this->title, "patients"=>$patients, "vaccinations"=> $vaccinations, "vaccines"=>$vaccines]);
     }
 
     /**

@@ -11,12 +11,6 @@
         padding-left: 0.5em;
         padding-right: 0.5em;
     }
-    .journal {
-        padding-top: 0.5em;
-        padding-bottom: 0.5em;
-        padding-left: 0.5em;
-        border-top: 1px solid black;
-    }
     .basic-info p {
         display: inline;
     }
@@ -24,5 +18,20 @@
         padding-top: 0.5em;
         border-bottom: 1px solid black;
         margin-bottom: 1em;
+    }
+    .journal {
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+        border-top: 1px solid black;
+    }
+    .date-text {
+        margin-bottom: 0.2em;
+    }
+    .vaccines {
+        border-bottom: 1px solid black;
+        padding-bottom: 0.2em;
+    }
+    p {
+        padding-left: 0.5em;
     }
 }
