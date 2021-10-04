@@ -39,6 +39,7 @@ use Session;
 class IndexController extends Controller
 {
     public $vaccinations;
+    public $filename = './json/this.json';
     // public function __construct()
     // {
     //     // if (Session::get("vaccinations") == null) {
@@ -52,10 +53,10 @@ class IndexController extends Controller
     // }
     public function checkfile() {
         // $file = fopen('./json/this.json', "r");
-        $filename = './json/this.json';
+        // $filename = './json/this.json';
 
-        if (file_exists($filename)) {
-            $date = date("d", filemtime($filename));
+        if (file_exists($this->filename)) {
+            $date = date("d", filemtime($this->filename));
             if ($date != Carbon::now()->format("d")) {
                 $this->createFile();
                 $this->readfile();
@@ -71,8 +72,8 @@ class IndexController extends Controller
     public function readFile() {
         // $text = readfile("./json/this.json");
         // echo json_decode($text);
-        $file = './json/this.json';
-        $data = file_get_contents($file);
+        // $file = './json/this.json';
+        $data = file_get_contents($this->filename);
         $obj = json_decode($data);
         // $file = fopen('./json/this.json', "r");
         // $content = fread($file, 8192);
@@ -89,7 +90,7 @@ class IndexController extends Controller
         // echo $json;
         $obj = json_decode($json);
         $this->vaccinations = end($obj[200]->data);
-        $file = fopen('./json/this.json', "w");
+        $file = fopen($this->filename, "w");
         // dd(json_encode(end($obj[200]->data)));
         fwrite($file, json_encode(end($obj[200]->data)));
         fclose($file);
