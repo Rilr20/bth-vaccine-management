@@ -16,12 +16,17 @@ class PatientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $patients = patient::all();
         $vaccinations = person_vaccine::all();
         $vaccines = vaccine::all();
+
+        if ($request->input('search') != null)  {
+            $patients = $this->search($request);
+        } else {
+            $patients = patient::all();
+        }
         return view('patient.index', ["title"=>$this->title, "patients"=>$patients, "vaccinations"=> $vaccinations, "vaccines"=>$vaccines]);
     }
 
@@ -34,7 +39,17 @@ class PatientController extends Controller
     {
         //
     }
-
+    public function search(Request $request) 
+    {
+        // dd("händer något");
+        $findpatient = $request->input('search');
+        // $vaccinations = person_vaccine::all();
+        // $vaccines = vaccine::all();
+        $patients = patient::where('personnumber', 'LIKE', "%$findpatient%")->orWhere('fullname', 'LIKE', "%$findpatient%")->get();
+        return $patients;
+        // redirect('/patient',["title" => $this->title, "patients" => $patients, "vaccinations" => $vaccinations, "vaccines" => $vaccines]);
+        // return view('patient.index', ["title" => $this->title, "patients" => $patients, "vaccinations" => $vaccinations, "vaccines" => $vaccines]);
+    }
     /**
      * Store a newly created resource in storage.
      *

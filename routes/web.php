@@ -36,6 +36,8 @@ Route::get("/", "App\Http\Controllers\IndexController@index");
 // Route::get('/staff', function () {
 //     return view('staff.index', ["title"=>"staff page"]);
 // });
+
+Route::get("/patient", 'App\Http\Controllers\PatientController@search');
 Route::resource('/patient', PatientController::class);
 Route::resource("/vaccine", VaccineController::class);
 Route::get("/staff/list", 'App\Http\Controllers\StaffController@showall');

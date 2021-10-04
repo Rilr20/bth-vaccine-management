@@ -8,7 +8,12 @@
     
 @endif
 @if (Auth::User() != null)
-    <h2>Search</h2>
+    {{-- <h2>Search</h2> --}}
+    <form action="{{url('/patient')}}" method="GET">
+    @csrf
+        <input type="text" name="search">
+        <input type="submit" value="search">
+    </form>
     <h2>All Patients</h2>
     <div class="patients">
         {{-- <div class="patient">
