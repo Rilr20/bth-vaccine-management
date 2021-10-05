@@ -134,18 +134,7 @@ body {
         text-align: left;
         margin-bottom: 0.5em;
     }
-    .input {
-        // padding: 2.5em;
-        padding: {
-            top: 0.5em;
-            bottom: 0.5em;
-            left: 0.5em
-        };
-        border: $torea-bay 2px solid;
-        border-radius: 5px;
-        margin-bottom: 1.5em;
-        height: 25px;
-    }
+    
     .login-button {
         padding: 0.7em;
         width: 100%;
@@ -159,7 +148,32 @@ body {
         background-color: darken($portage, 10%);
     }
 }
+.button {
+    padding: {
+        top: 0.8em;
+        bottom: 0.8em;
+        right: 0.8em;
+        left: 0.8em
+    };
+    background-color: $portage;
+    color: white;
+    cursor: pointer;
 
+    border-style: none;
+    border-radius: 5px;
+}
+.input {
+    // padding: 2.5em;
+    padding: {
+        top: 0.5em;
+        bottom: 0.5em;
+        left: 0.5em
+    };
+    border: $torea-bay 2px solid;
+    border-radius: 5px;
+    margin-bottom: 1.5em;
+    height: 25px;
+}
 .login-form-div .input-div-flex {
     display: flex;
     padding-top: .5em;
