@@ -116,7 +116,7 @@ class VaccineController extends Controller
         // dd($data->input());
         // dd($patient_id);
         $today = Carbon::today();
-        dd($data->input('vaccine_id'));
+        // dd($data->input('vaccine_id'));
         // dd($today);
         // dd();
         // echo $patient_id->id,
