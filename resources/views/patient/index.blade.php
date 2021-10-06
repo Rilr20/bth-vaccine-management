@@ -2,16 +2,60 @@
 @section('title', $title ?? "no title")
 @section('content')
 
-<h1>Patients</h1>
 @if (Auth::User() == null)
-    <h2>Book a time</h2>
     
+    <div class="vaccine login-form-div">
+        <form action="" method="POST">
+            @csrf
+            <h2>Book a time</h2>
+            <div class="input-div">
+                <label for="personnumber">Person number</label>
+                <input class="input" type="text" name="personnumber" placeholder="XXXXXX1234" required>
+            </div>
+            <div class="input-div">
+                <label for="name">Full name</label>
+                <input class="input" type="text" name="name" placeholder="Full name" >
+            </div>
+            <div class="input-div">
+                <label for="phonenumber"  >Phonenumber</label>
+
+                <input class="input" type="text" name="phonenumber" maxlength="15" placeholder="phonenumber" >
+            </div>
+            <div class="input-div">
+                <label for="birthdate">Birthdate</label>
+                <input class="input" type="date" name="birthdate">
+            </div>
+            <div class="input-div">
+                <label for="gender">Gender</label>
+                <select class="input select" name="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div class="input-div">
+                <label for="vaccine_id">Vaccine</label>
+                <select class="input select" name="vaccine_id">
+                    <option selected="true" disabled="disabled">Select Vaccine</option>
+                    {{-- <option>Select Vgsdaccine</option>
+                    <option >Selasgdect Vaccine</option>
+                    <option>Select Vasdgaccine</option> --}}
+                    {{-- @foreach ($vaccines as $vaccine)
+                        <option value="{{$vaccine->id}}">{{$vaccine->vaccine_name }} | {{ $vaccine->vaccine_type}}</option>
+                    @endforeach --}}
+                </select>
+            </div>
+            <div class="input-div">
+                <input class="form-button login-button" type="submit" value="Done">
+            </div>
+        </form>
+    </div>
 @endif
 @if (Auth::User() != null)
+
     {{-- <h2>Search</h2> --}}
-    <form class="center" class="" action="{{url('/patient')}}" method="GET">
+    <form class="center search" action="{{url('/patient')}}" method="GET">
     @csrf
-        <input class="input" type="text" name="search">
+        <input class="input" type="text" placeholder="search..." name="search">
         <input class="button" type="submit" value="search">
     </form>
     <h2>All Patients</h2>
