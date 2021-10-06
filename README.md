@@ -3,4 +3,4 @@ Vaccinemanagement website, that also displays statistics on the vaccination prog
 
 Created for the individual project course on BTH. 
 
-Project uses laravel framework 
+Project uses laravel framework and a mysql database
