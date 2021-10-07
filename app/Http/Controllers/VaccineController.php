@@ -50,6 +50,7 @@ class VaccineController extends Controller
      */
     public function store(Request $request)
     {
+        // echo "nu ska vi vaccinera!!!";
         $vaccines = vaccine::all();
         //
         // dd($request->input());
@@ -58,7 +59,7 @@ class VaccineController extends Controller
         // dd($test);
         $patient_id = patient::select('id')->where('personnumber', $request->input('personnumber'))->first();
         // dd($patient_id->id);
-        if ($patient_id == null) {
+        if ($patient_id == null) { //check if patients doesnt exists
             if($request->input('gender') != null 
                 && $request->input('name') !== null
                 && $request->input('birthdate') !== null) {
@@ -77,7 +78,7 @@ class VaccineController extends Controller
                 $vaccines = vaccine::all();
                 return view('vaccine.create', ["title" => $this->title, "error"=>"Patient doesn't exist, check person number or create patient","vaccines" => $vaccines]);
             }
-        } else {
+        } else { //patient exist give vaccine
             // echo "give vaccine";
             //works :D
             // dd($patient_id->id);
@@ -85,6 +86,7 @@ class VaccineController extends Controller
             $patient_id = patient::select('id')->where('personnumber', $request->input('personnumber'))->first();
             // dd($patient_id->id);
             if ($request->input('vaccine_id') != null) {
+                $this->createJournal($request, $patient_id);
                 $this->giveVaccine($request, $patient_id);
             } else {
                 return view('vaccine.create', ["title" => $this->title, "vaccines" => $vaccines, "error"=>"No Vaccine Selected"]);
@@ -94,6 +96,24 @@ class VaccineController extends Controller
         $this->title = $this->title . " | Create";
         return view('vaccine.create', ["title" => $this->title, "vaccines" => $vaccines, "error"=>"Patient Vaccinated"]);
     }
+
+    private function createJournal($patient, $patient_id) {
+        $oldjournal = patient::select('journal')->where('id', $patient_id->id)->first();
+        if ($patient->input('journal') != null)  {
+            if ($oldjournal == null) {
+                $newpatient = patient::where('id', $patient_id->id)->
+                update([
+                    'journal' => $patient->input('journal')
+                ]);
+            } else {
+                $newpatient = patient::where('id', $patient_id->id)->
+                update([
+                    'journal' => $oldjournal->journal . " " . $patient->input('journal')
+                ]);
+            }
+        }
+    }
+
     private function createPatient($patient) {
 
         $number = $patient->input('phonenumber') !== null ? $patient->input('phonenumber') : null; 
