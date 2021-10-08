@@ -10,7 +10,7 @@
             <h2>Book a time</h2>
             <div class="input-div">
                 <label for="personnumber">Person number</label>
-                <input class="input" type="text" name="personnumber" placeholder="XXXXXX1234" required>
+                <input class="input" type="text" name="personnumber" placeholder="XXXXXX1234" maxlength="10" required>
             </div>
             <div class="input-div">
                 <label for="name">Full name</label>
@@ -91,7 +91,7 @@
                                 @foreach ($vaccines as $vaccine) {{--vaccine--}}
                                     @if ($vaccination->vaccine_id == $vaccine->id)
                                         <p>{{$vaccine->vaccine_name}} | {{$vaccine->vaccine_type}} </p>
-                                        <p class="date-text">Date taken {{substr($vaccination->created_at, 0, 10)}}</p>
+                                        <p class="date-text">Date taken {{$vaccination->created_at, 0, 10}}</p>
                                     @endif
                                 @endforeach
                             @endif
