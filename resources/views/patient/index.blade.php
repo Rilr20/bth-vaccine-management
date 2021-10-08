@@ -74,7 +74,6 @@
                 </p>
             </div>
         </div> --}}
-
         @foreach ($patients as $patient)
             <div class="patient">
                 <div class="basic-info">

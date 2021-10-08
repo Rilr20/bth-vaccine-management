@@ -10,6 +10,7 @@
         border: 1px solid black;
         padding-left: 0.5em;
         padding-right: 0.5em;
+        
     }
     .basic-info p {
         display: inline;
@@ -23,6 +24,11 @@
         padding-top: 0.5em;
         padding-bottom: 0.5em;
         border-top: 1px solid black;
+        
+    }
+    .journal p {
+        max-height: 125px;
+        overflow-y: auto;
     }
     .date-text {
         margin-bottom: 0.2em;
@@ -30,6 +36,8 @@
     .vaccines {
         border-bottom: 1px solid black;
         padding-bottom: 0.2em;
+        max-height: 100px;
+        overflow-y: auto;
     }
     p {
         padding-left: 0.5em;

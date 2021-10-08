@@ -118,7 +118,7 @@ class StaffController extends Controller
     private function getHistory($id) {
         $patient_data = [];
         $vaccine_data = [];
-        $person_vaccine = person_vaccine::select('patient_id', 'vaccine_id', 'created_at')->where('staff', $id)->orderBy('created_at', 'desc')->get();
+        $person_vaccine = person_vaccine::select('patient_id', 'vaccine_id', 'created_at')->where('staff', $id)->orderBy('created_at', 'desc')->limit(10)->get();
         // $person_vaccine = person_vaccine::se();
         // dd($person_vaccine);
         // echo $person_vaccine;
