@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\patient;
 use App\Models\person_vaccine;
+use App\Models\schedule;
 use App\Models\User;
 use App\Models\vaccine;
 use Carbon\Carbon;
@@ -31,7 +32,8 @@ class StaffController extends Controller
         // $this->title = "staff";
         //check if logged in
         $history = $this->getHistory(Auth::User()->id);
-        return view('staff.index', ["title"=>$this->title, "history"=>$history]);
+        $schedule = $this->getSchedule();
+        return view('staff.index', ["title"=>$this->title, "history"=>$history, "schedule"=>$schedule]);
     }
 
     /**
@@ -114,6 +116,15 @@ class StaffController extends Controller
         }
         // dd($user);
         // dd($id);
+    }
+
+    private function getSchedule() {
+        $schedule = schedule::select('patient', 'disease', 'booked', 'fullfilled')->where([
+            ['fullfilled', '=', 0],
+            ['booked', ">=", Carbon::today()]
+            ])->get();
+        // dd($schedule);
+        return $schedule;
     }
     private function getHistory($id) {
         $patient_data = [];

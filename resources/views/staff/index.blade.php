@@ -12,5 +12,10 @@
         @endforeach
     </div>
     <h2>Upcoming</h2>
+    <div class="staff-history">
+    @foreach ($schedule as $row)
+        <p class="history">patient {{$row->patient}} {{$row->disease}} {{$row->booked}}</p>
+    @endforeach
+    </div>
 </div>
 @stop

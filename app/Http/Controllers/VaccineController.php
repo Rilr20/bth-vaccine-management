@@ -51,50 +51,61 @@ class VaccineController extends Controller
     public function store(Request $request)
     {
         // echo "nu ska vi vaccinera!!!";
-        $vaccines = vaccine::all();
-        //
-        // dd($request->input());
-        // $patient = new patient();
-        // $test = patient::all('id');
-        // dd($test);
-        $patient_id = patient::select('id')->where('personnumber', $request->input('personnumber'))->first();
-        // dd($patient_id->id);
-        if ($patient_id == null) { //check if patients doesnt exists
-            if($request->input('gender') != null 
-                && $request->input('name') !== null
-                && $request->input('birthdate') !== null) {
-                    // echo "create new patient then give vaccine";
-                    //works :D
-                    $patient_id = $this->createPatient($request);
-                // dd($patient_id);
-                    if ($request->input('vaccine_id') != null) {
-                        $this->giveVaccine($request, $patient_id);
-                    } else {
-                        return view('vaccine.create', ["title" => $this->title, "vaccines" => $vaccines, "error"=>"No Vaccine Selected"]);
-                    }
-                } else {
-                // echo "redirect and say error patient info not filled in";
-                //works :D
-                $vaccines = vaccine::all();
-                return view('vaccine.create', ["title" => $this->title, "error"=>"Patient doesn't exist, check person number or create patient","vaccines" => $vaccines]);
-            }
-        } else { //patient exist give vaccine
-            // echo "give vaccine";
-            //works :D
-            // dd($patient_id->id);
-            // $patient_id = patient::Select('id')->Where('personnumber', $request->input('personnumber')->get());
+        if ($request->input('create_vaccine') != null) {
+            # code...
+            $vaccine = new vaccine();
+            $vaccine->vaccine_name = $request->input('vaccine_name');
+            $vaccine->vaccine_type = $request->input('vaccine_type');
+            $vaccine->save();
+            $vaccine = vaccine::all();
+            return view('vaccine.index', ["title" => $this->title, "vaccines" => $vaccine]);
+        } else {
+
+            $vaccines = vaccine::all();
+            //
+            // dd($request->input());
+            // $patient = new patient();
+            // $test = patient::all('id');
+            // dd($test);
             $patient_id = patient::select('id')->where('personnumber', $request->input('personnumber'))->first();
             // dd($patient_id->id);
-            if ($request->input('vaccine_id') != null) {
-                $this->createJournal($request, $patient_id);
-                $this->giveVaccine($request, $patient_id);
-            } else {
-                return view('vaccine.create', ["title" => $this->title, "vaccines" => $vaccines, "error"=>"No Vaccine Selected"]);
+            if ($patient_id == null) { //check if patients doesnt exists
+                if($request->input('gender') != null 
+                    && $request->input('name') !== null
+                    && $request->input('birthdate') !== null) {
+                        // echo "create new patient then give vaccine";
+                        //works :D
+                        $patient_id = $this->createPatient($request);
+                    // dd($patient_id);
+                        if ($request->input('vaccine_id') != null) {
+                            $this->giveVaccine($request, $patient_id);
+                        } else {
+                            return view('vaccine.create', ["title" => $this->title, "vaccines" => $vaccines, "error"=>"No Vaccine Selected"]);
+                        }
+                    } else {
+                    // echo "redirect and say error patient info not filled in";
+                    //works :D
+                    $vaccines = vaccine::all();
+                    return view('vaccine.create', ["title" => $this->title, "error"=>"Patient doesn't exist, check person number or create patient","vaccines" => $vaccines]);
+                }
+            } else { //patient exist give vaccine
+                // echo "give vaccine";
+                //works :D
+                // dd($patient_id->id);
+                // $patient_id = patient::Select('id')->Where('personnumber', $request->input('personnumber')->get());
+                $patient_id = patient::select('id')->where('personnumber', $request->input('personnumber'))->first();
+                // dd($patient_id->id);
+                if ($request->input('vaccine_id') != null) {
+                    $this->createJournal($request, $patient_id);
+                    $this->giveVaccine($request, $patient_id);
+                } else {
+                    return view('vaccine.create', ["title" => $this->title, "vaccines" => $vaccines, "error"=>"No Vaccine Selected"]);
+                }
+                
             }
-            
+            $this->title = $this->title . " | Create";
+            return view('vaccine.create', ["title" => $this->title, "vaccines" => $vaccines, "error"=>"Patient Vaccinated"]);
         }
-        $this->title = $this->title . " | Create";
-        return view('vaccine.create', ["title" => $this->title, "vaccines" => $vaccines, "error"=>"Patient Vaccinated"]);
     }
 
     private function createJournal($patient, $patient_id) {
