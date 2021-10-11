@@ -22,15 +22,33 @@ class PatientController extends Controller
             if ($date->format('l') != "Saturday" && $date->format('l') != "Sunday")
             {
                 array_push($dateArray,$date->format('l'));
-                array_push($dateArray, $date->toDateString() .  " 13:00");
-                array_push($dateArray, $date->toDateString() .  " 15:00");
-                array_push($dateArray, $date->toDateString() .  " 17:00");
+                array_push($dateArray, $date->toDateString() .  " 13:00:00");
+                array_push($dateArray, $date->toDateString() .  " 15:00:00");
+                array_push($dateArray, $date->toDateString() .  " 17:00:00");
                 // $dateArray[$i] = Carbon::now()->addDays($i + 1);
-
             }
         }
         // dd($dateArray);
+        $dateArray = $this->takenTimes($dateArray);
+        return $dateArray;
+    }
 
+    private function takenTimes($dateArray) {
+        $schedule = schedule::select('booked')->where([
+            ['booked', ">=", Carbon::today()]
+        ])->get();
+        foreach ($schedule as $booked) {
+            // echo $booked->booked . "booked times <br>";
+            for ($i=0; $i < count($dateArray); $i++) { 
+                // echo $booked->booked . " " . $dateArray[$i] . "<br>";
+                if ($booked->booked == $dateArray[$i]) {
+                    array_splice($dateArray, $i, 1);
+                    // echo "time taken";
+                }
+                // echo $dateArray[$i];
+                // echo "<br>";
+            }
+        }
         return $dateArray;
     }
     /**
@@ -99,6 +117,10 @@ class PatientController extends Controller
      */
     public function book(Request $request) 
     {
+        if ($request->input('date') == null) {
+            return "No Time selected";
+        }
+        // dd($request->input());
         // echo "tja detta är book";
         // dd($request->input());
         // scheduled::create([
@@ -119,8 +141,13 @@ class PatientController extends Controller
     private function patientExist($request) {
         $patient_id = patient::select('id', 'fullname')->where('personnumber', $request->input('personnumber'))->first();
         if ($patient_id == null) {
-            // echo "patient doesn't exist";
-            return $this->create_patient($request); //returns id
+            if ($request->input('fullname') != null
+                && $request->input('birthdate') != null){
+                // echo "patient doesn't exist";
+                return $this->create_patient($request); //returns id
+            } else {
+                return "Fill out the patient creditentials";
+            }
         } else {
             // echo "patient exists";
             //check if the rest of information is correct
