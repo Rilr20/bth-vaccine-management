@@ -56,6 +56,7 @@ class VaccineController extends Controller
             $vaccine = new vaccine();
             $vaccine->vaccine_name = $request->input('vaccine_name');
             $vaccine->vaccine_type = $request->input('vaccine_type');
+            $vaccine->count = 0;
             $vaccine->save();
             $vaccine = vaccine::all();
             return view('vaccine.index', ["title" => $this->title, "vaccines" => $vaccine]);
