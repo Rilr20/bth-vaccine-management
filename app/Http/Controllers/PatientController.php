@@ -4,13 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Models\patient;
 use App\Models\person_vaccine;
+use App\Models\schedule;
 use App\Models\vaccine;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PatientController extends Controller
 {
     private $title = "Patient";
 
+    private function nextThreeDays()
+    {
+        $dateArray = [];
+        $date = Carbon::now();
+        for ($i=0; count($dateArray) < 12; $i++) { 
+            $date->addDays(1);
+            if ($date->format('l') != "Saturday" && $date->format('l') != "Sunday")
+            {
+                array_push($dateArray,$date->format('l'));
+                array_push($dateArray, $date->toDateString() .  " 13:00");
+                array_push($dateArray, $date->toDateString() .  " 15:00");
+                array_push($dateArray, $date->toDateString() .  " 17:00");
+                // $dateArray[$i] = Carbon::now()->addDays($i + 1);
+
+            }
+        }
+        // dd($dateArray);
+
+        return $dateArray;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,12 +44,13 @@ class PatientController extends Controller
         $vaccinations = person_vaccine::all();
         $vaccines = vaccine::all();
 
+        $dateArray = $this->nextThreeDays();
         if ($request->input('search') != null)  {
             $patients = $this->search($request);
         } else {
             $patients = patient::all();
         }
-        return view('patient.index', ["title"=>$this->title, "patients"=>$patients, "vaccinations"=> $vaccinations, "vaccines"=>$vaccines]);
+        return view('patient.index', ["title"=>$this->title, "patients"=>$patients, "vaccinations"=> $vaccinations, "vaccines"=>$vaccines, "dates"=> $dateArray]);
     }
 
     /**
@@ -59,8 +82,72 @@ class PatientController extends Controller
     public function store(Request $request)
     {
         //
+        // echo "detta är store";
+        if($request->input('book') == 'book') {
+            $time = $this->book($request);
+            $dateArray = $this->nextThreeDays();
+            $vaccines = vaccine::all();
+            return view('patient.index', ["title" => $this->title, "vaccines" => $vaccines, "dates" => $dateArray, "book"=>$time]);
+            // return view('patient.index', ["title" => $this->title, "book" => "Your booked time is $time"]);
+        }
     }
-
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function book(Request $request) 
+    {
+        // echo "tja detta är book";
+        // dd($request->input());
+        // scheduled::create([
+        // ]);
+        $id = $this->patientExist($request);
+        // echo $id->id;
+        if ($id != "Patient Credidentials Are wrong") {
+            schedule::make([
+                'patient'=> $id->id,//create staff it doesn't exist
+                'disease'=> $request->input('disease'),
+                'booked'=> $request->input('date')
+            ])->save();
+            return "The time you booked is: " . $request->input('date');
+        } else {
+            return $id;
+        }
+    }
+    private function patientExist($request) {
+        $patient_id = patient::select('id', 'fullname')->where('personnumber', $request->input('personnumber'))->first();
+        if ($patient_id == null) {
+            // echo "patient doesn't exist";
+            return $this->create_patient($request); //returns id
+        } else {
+            // echo "patient exists";
+            //check if the rest of information is correct
+            if ($patient_id->fullname !=$request->input('name')) {
+                // echo "patient exist but wrong name";
+                $dateArray = $this->nextThreeDays();
+                $vaccines = vaccine::all();
+                return "Patient Credidentials Are wrong";
+            }
+            return $patient_id;
+        }
+    }
+    private function create_patient($patient)
+    {
+        $patient_id = 2;
+        $patient_id = "creating patient";
+        $number = $patient->input('phonenumber') !== null ? $patient->input('phonenumber') : null;
+        $created = patient::make([
+            'personnumber' => $patient->personnumber,
+            'fullname' => $patient->name,
+            'phonenumber' => $number,
+            'birthdate' => $patient->birthdate,
+            'gender' => $patient->gender,
+        ])->save();
+        $patient_id = patient::select('id')->where('personnumber', $patient->personnumber)->first();
+        return $patient_id; //id av patient
+    }
     /**
      * Display the specified resource.
      *

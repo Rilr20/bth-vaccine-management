@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class scheduled extends Model
+class schedule extends Model
 {
     use HasFactory;
 
@@ -33,9 +33,11 @@ class scheduled extends Model
      * @var string[]
      */
     protected $fillable = [
-        'person',
+        'patient',
         'staff',
         'booked',
         'vaccine_id',
+        'disease',
+        'fullfilled'
     ];
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateScheduledsTable extends Migration
+class CreateSchedulesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateScheduledsTable extends Migration
      */
     public function up()
     {
-        Schema::create('scheduleds', function (Blueprint $table) {
+        Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('patient');//->references('id')->on('patients');//foreign key
-            $table->unsignedBigInteger('staff');//->references('id')->on('users');//foreign key
-            $table->unsignedBigInteger('vaccine_id');//->references('id')->on('vaccines');//foreign key
+            $table->unsignedBigInteger('staff')->nullable();//->references('id')->on('users');//foreign key
+            $table->unsignedBigInteger('vaccine_id')->nullable(); //->references('id')->on('vaccines');//foreign key
+            $table->string('disease');//->references('id')->on('vaccines');//foreign key
             $table->dateTime('booked');
-            // $table->timestamps();
+            $table->tinyInteger('fullfilled')->default(0);
+            $table->timestamps();
 
             $table->foreign('staff')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('vaccine_id')->references('id')->on('vaccines')->onDelete('cascade');
@@ -34,6 +36,6 @@ class CreateScheduledsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scheduleds');
+        Schema::dropIfExists('schedules');
     }
 }
