@@ -18,6 +18,7 @@ class CreateVaccinesTable extends Migration
             $table->id();
             $table->string('vaccine_name', 50);
             $table->string('vaccine_type', 50);
+            $table->integer('count')->default(0)->nullable();
             $table->timestamps();
         });
         $this->migrationCreate();
@@ -30,6 +31,7 @@ class CreateVaccinesTable extends Migration
             $vaccine = new vaccine();
             $vaccine->vaccine_name = $vaccine_name[$i];
             $vaccine->vaccine_type = $vaccine_type[$i];
+            $vaccine->count = 50;
             $vaccine->save();
         }
     }

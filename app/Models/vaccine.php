@@ -26,5 +26,6 @@ class vaccine extends Model
         'vaccine_id',
         'vaccine_name',
         'vaccine_type',
+        'count',
     ];
 }
