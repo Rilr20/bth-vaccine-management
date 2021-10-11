@@ -1,13 +1,20 @@
 @extends('layout/main')
 @section('title', $title ?? "no title")
+@php
+    $book = $book ?? null;
+    $patients = $patients ?? null;
+    $vaccinations = $vaccinations ?? null;
+    $weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+@endphp
 @section('content')
 
 @if (Auth::User() == null)
     
     <div class="vaccine login-form-div">
-        <form action="" method="POST">
+        <form action="{{url('/patient')}}" method="POST">
             @csrf
             <h2>Book a time</h2>
+            <p>{{$book}}</p>
             <div class="input-div">
                 <label for="personnumber">Person number</label>
                 <input class="input" type="text" name="personnumber" placeholder="XXXXXX1234" maxlength="10" required>
@@ -33,20 +40,45 @@
                 </select>
             </div>
             <div class="input-div">
+                @foreach ($dates as $date)
+                @if (in_array($date, $weekdays))
+                    <p>{{$date}}</p>
+                @else
+                    <div class="radio-div">
+                    <input type="radio" name="date" value="{{$date}}">
+                    <label for="radio">{{$date}}</label>
+                    </div>
+                    @endif
+                    
+                @endforeach
+                
+                
+            </div>
+            <div class="input-div">
                 <label for="vaccine_id">Vaccine</label>
-                <select class="input select" name="vaccine_id">
+                <select class="input select" name="disease">
                     <option selected="true" disabled="disabled">Select Vaccine</option>
                     {{-- <option>Select Vgsdaccine</option>
                     <option >Selasgdect Vaccine</option>
                     <option>Select Vasdgaccine</option> --}}
+                    @php
+                        $check= [];
+                        foreach ($vaccines as $vaccine) {
+                            if (!in_array($vaccine->vaccine_type, $check)) {
+                                array_push($check, $vaccine->vaccine_type);
+                                echo "<option value=\"$vaccine->vaccine_type\"> $vaccine->vaccine_type</option>";
+                            }
+                        }
+                    @endphp
                     {{-- @foreach ($vaccines as $vaccine)
-                        <option value="{{$vaccine->id}}">{{$vaccine->vaccine_name }} | {{ $vaccine->vaccine_type}}</option>
+                        
                     @endforeach --}}
                 </select>
             </div>
             <div class="input-div">
                 <input class="form-button login-button" type="submit" value="Done">
             </div>
+            <input type="hidden" name="book" value="book">
         </form>
     </div>
 @endif
