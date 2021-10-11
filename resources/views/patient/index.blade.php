@@ -14,7 +14,7 @@
         <form action="{{url('/patient')}}" method="POST">
             @csrf
             <h2>Book a time</h2>
-            <p>{{$book}}</p>
+            <p style="color: #4e4e4e;">{{$book}}</p>
             <div class="input-div">
                 <label for="personnumber">Person number</label>
                 <input class="input" type="text" name="personnumber" placeholder="XXXXXX1234" maxlength="10" required>
@@ -40,19 +40,21 @@
                 </select>
             </div>
             <div class="input-div">
-                @foreach ($dates as $date)
-                @if (in_array($date, $weekdays))
-                    <p>{{$date}}</p>
-                @else
-                    <div class="radio-div">
-                    <input type="radio" name="date" value="{{$date}}">
-                    <label for="radio">{{$date}}</label>
-                    </div>
-                    @endif
+                @for ($i = 0; $i < count($dates); $i++)
                     
-                @endforeach
-                
-                
+                    @if (in_array($dates[$i], $weekdays))
+                        <p>{{$dates[$i]}}</p>
+                        @if ( !isset($dates[$i+1]) || in_array($dates[$i+1], $weekdays))
+                            <p>No times available</p>
+                        @endif
+                    @else
+                        <div class="radio-div">
+                        <input type="radio" name="date" value="{{$dates[$i]}}">
+                        <label for="radio">{{$dates[$i]}}</label>
+                        </div>
+                    @endif
+                   
+                @endfor
             </div>
             <div class="input-div">
                 <label for="vaccine_id">Vaccine</label>
@@ -75,9 +77,14 @@
                     @endforeach --}}
                 </select>
             </div>
-            <div class="input-div">
-                <input class="form-button login-button" type="submit" value="Done">
-            </div>
+            @if (!array_diff($dates, $weekdays))
+                <p>No times available check again tomorrow :)</p>
+            @else 
+                <div class="input-div">
+                    <input class="form-button login-button" type="submit" value="Done">
+                </div>
+            @endif
+            
             <input type="hidden" name="book" value="book">
         </form>
     </div>

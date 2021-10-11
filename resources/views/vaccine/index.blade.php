@@ -33,12 +33,23 @@
     @endif
    
 
-    <div class="vaccine-div">
-        <p>Disease</p>
-        <p>Vaccine name</p>
+    {{-- <div class="vaccine-div"> --}}
+    <table>
+        <thead>
+            <th>Disease</th>
+            <th>Vaccine Name</th>
+            <th>Vaccines left</th>
+        </thead>
+        {{-- <p>Disease</p> --}}
+        {{-- <p>Vaccine name</p> --}}
         @foreach ($vaccines as $vaccine)
-            <p>{{$vaccine->vaccine_type}}</p><p>{{$vaccine->vaccine_name}}</p>
+            <tr>
+                <td>{{$vaccine->vaccine_type}}</td>
+                <td>{{$vaccine->vaccine_name}}</td>
+                <td>{{$vaccine->count}}</td>
+            </tr>
         @endforeach
-    </div>
+    </table>
+    {{-- </div> --}}
 </div>
 @endsection
