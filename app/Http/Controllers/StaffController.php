@@ -33,7 +33,9 @@ class StaffController extends Controller
         //check if logged in
         $history = $this->getHistory(Auth::User()->id);
         $schedule = $this->getSchedule();
-        return view('staff.index', ["title"=>$this->title, "history"=>$history, "schedule"=>$schedule]);
+        $vaccines = vaccine::all();
+
+        return view('staff.index', ["title"=>$this->title, "history"=>$history, "schedule"=>$schedule, "vaccines" => $vaccines]);
     }
 
     /**
@@ -119,11 +121,15 @@ class StaffController extends Controller
     }
 
     private function getSchedule() {
-        $schedule = schedule::select('patient', 'disease', 'booked', 'fullfilled')->where([
+        $schedule = schedule::select('id', 'patient', 'disease', 'booked', 'fullfilled')->where([
             ['fullfilled', '=', 0],
             ['booked', ">=", Carbon::today()]
-            ])->get();
+            ])->orderby('booked', 'ASC')->limit(5)->get();
         // dd($schedule);
+        foreach ($schedule as $scheduled) {
+            $patient = patient::select('personnumber')->where('id', $scheduled->patient)->first();
+            $scheduled->personnumber = $patient->personnumber;
+        }
         return $schedule;
     }
     private function getHistory($id) {
