@@ -141,7 +141,7 @@ class PatientController extends Controller
     private function patientExist($request) {
         $patient_id = patient::select('id', 'fullname')->where('personnumber', $request->input('personnumber'))->first();
         if ($patient_id == null) {
-            if ($request->input('fullname') != null
+            if ($request->input('name') != null
                 && $request->input('birthdate') != null){
                 // echo "patient doesn't exist";
                 return $this->create_patient($request); //returns id
