@@ -148,6 +148,27 @@ body {
         background-color: darken($portage, 10%);
     }
 }
+.form-button {
+    padding: 0.7em;
+    background-color: $portage;
+    color: white;
+    cursor: pointer;
+    border-style: none;
+    border-radius: 5px;
+}
+.select-staff {
+    height: 100%;
+    min-width: 300px;
+    padding: {
+        top: 0.5em;
+        bottom: 0.5em;
+        left: 0.5em
+    };
+    border: $torea-bay 2px solid;
+    border-radius: 5px;
+    margin-bottom: 1.5em;
+    margin-top: 1em;
+}
 .button {
     padding: {
         top: 0.8em;
