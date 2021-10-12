@@ -147,7 +147,6 @@
             </div>
         @endforeach    
     </div>
-    <h2>Upcoming Vaccinations</h2>
 @endif
 
 @endsection

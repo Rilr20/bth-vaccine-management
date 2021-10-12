@@ -14,7 +14,30 @@
     <h2>Upcoming</h2>
     <div class="staff-history">
     @foreach ($schedule as $row)
-        <p class="history">patient {{$row->patient}} {{$row->disease}} {{$row->booked}}</p>
+        <form action="{{url("/vaccine")}}" method="POST">
+            @csrf
+            <div class="history">
+                <p>
+                    patient: {{$row->personnumber}} vaccine: {{$row->disease}} {{$row->booked}}
+                </p>
+                <select style="" class="select-staff" name="vaccine_id">
+                        <option selected="true" disabled="disabled">Select Vaccine</option>
+                        {{-- <option>Select Vgsdaccine</option>
+                        <option >Selasgdect Vaccine</option>
+                        <option>Select Vasdgaccine</option> --}}
+                        @foreach ($vaccines as $vaccine)
+                            @if ($vaccine->vaccine_type == $row->disease)
+                                <option value="{{$vaccine->id}}">{{$vaccine->vaccine_name }} | {{ $vaccine->vaccine_type}}</option>
+                                
+                            @endif
+                        @endforeach
+                    </select>
+                    <input type="hidden" name="staff" value="{{Auth::user()->id}}">
+                    <input type="hidden" name="schedule" value="{{$row->id}}">
+                    <input type="hidden" name="personnumber" value="{{$row->personnumber}}">
+                    <input class="form-button" type="submit" value="Done">
+            </div>
+        </form>
     @endforeach
     </div>
 </div>
