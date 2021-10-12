@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\patient;
 use App\Models\person_vaccine;
+use App\Models\schedule;
 use App\Models\vaccine;
 use Carbon\Carbon;
+use Illuminate\Console\Scheduling\Schedule as SchedulingSchedule;
 use Illuminate\Http\Request;
 
 class VaccineController extends Controller
@@ -49,7 +51,14 @@ class VaccineController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+        if ($request->input('schedule') != null) {
+            //update schedule where id is :)
+            $schedule = schedule::where('id', $request->input('schedule'))->
+                update([
+                    'fullfilled' => 1
+                ]);
+        }
         // echo "nu ska vi vaccinera!!!";
         if ($request->input('create_vaccine') != null) {
             # code...
