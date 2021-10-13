@@ -40,6 +40,8 @@ Route::get("/", "App\Http\Controllers\IndexController@index");
 Route::get("/patient", 'App\Http\Controllers\PatientController@search');
 Route::post("/patient/book", 'App\Http\Controllers\PatientController@book');
 Route::resource('/patient', PatientController::class);
+
+Route::get("/vaccine/delivery", 'App\Http\Controllers\VaccineController@delivery');
 Route::resource("/vaccine", VaccineController::class);
 Route::get("/staff/list", 'App\Http\Controllers\StaffController@showall');
 Route::get("/staff/admin", 'App\Http\Controllers\StaffController@showalladmin');
