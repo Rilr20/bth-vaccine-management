@@ -130,7 +130,8 @@
                                 @foreach ($vaccines as $vaccine) {{--vaccine--}}
                                     @if ($vaccination->vaccine_id == $vaccine->id)
                                         <p>{{$vaccine->vaccine_name}} | {{$vaccine->vaccine_type}} </p>
-                                        <p class="date-text">Date taken {{$vaccination->created_at, 0, 10}}</p>
+                                        <p class="date-text">Date taken {{$vaccination->created_at, 0, 10}} </p>
+                                        <p class="date-text">Expiration date: {{$vaccination->expiration_date}}</p>
                                     @endif
                                 @endforeach
                             @endif

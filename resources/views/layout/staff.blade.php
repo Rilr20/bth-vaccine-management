@@ -53,6 +53,7 @@
                     <a href="{{url("/staff/list")}}">Staff List</a>
                     <h2>Vaccine info</h2>
                     <a href="{{url("/vaccine")}}">Vaccine Info</a>
+                    <a href="{{url("/vaccine/delivery")}}">Vaccine Delivery</a>
                     {{-- <h2>New Vaccination</h2> --}}
                     <a href="{{url("/vaccine/create")}}">New Vaccination</a>
                     @if(Auth::user()->is_admin == 1)
