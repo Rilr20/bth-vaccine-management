@@ -30,6 +30,12 @@ class VaccineController extends Controller
         return view('vaccine.index', ["title"=>$this->title, "vaccines"=>$vaccine]);
     }
 
+
+    public function delivery()
+    {
+        $vaccine = vaccine::all();
+        return view('vaccine.delivery', ["title" => $this->title, "vaccines" => $vaccine]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -38,12 +44,21 @@ class VaccineController extends Controller
     public function create()
     {
         //
-        $vaccines = vaccine::all();
+        $vaccines = vaccine::select('id', 'vaccine_type', 'vaccine_name')->where([
+            ['count', ">", '0']
+        ])->get();
         // dd($vaccines);
         $this->title = $this->title . " | Create";
         return view('vaccine.create', ["title" => $this->title, "vaccines"=>$vaccines]);
     }
-
+    public function removeOne($vaccine_id)
+    {
+        $vaccine = vaccine::select('count')->where('id', $vaccine_id)->first();
+        vaccine::where('id', $vaccine_id)->
+                update([
+                    'count' => $vaccine->count - 1
+                ]);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -51,7 +66,18 @@ class VaccineController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
+        if ($request->input('vaccine_delivery') != null) {
+            $vaccines = vaccine::all();
+            foreach ($vaccines as $vaccine) {
+                // echo $request->input($vaccine->id;
+                vaccine::where('id', $vaccine->id)->update([
+                    'count' => $vaccine->count + abs($request->input($vaccine->id))
+                ]);
+            }
+            $vaccine = vaccine::all();
+            return view('vaccine.index', ["title" => $this->title, "vaccines" => $vaccine]);
+        }
         if ($request->input('schedule') != null) {
             //update schedule where id is :)
             $schedule = schedule::where('id', $request->input('schedule'))->
@@ -59,7 +85,6 @@ class VaccineController extends Controller
                     'fullfilled' => 1
                 ]);
         }
-        // echo "nu ska vi vaccinera!!!";
         if ($request->input('create_vaccine') != null) {
             # code...
             $vaccine = new vaccine();
@@ -70,7 +95,7 @@ class VaccineController extends Controller
             $vaccine = vaccine::all();
             return view('vaccine.index', ["title" => $this->title, "vaccines" => $vaccine]);
         } else {
-
+            // echo "nu ska vi vaccinera!!!";
             $vaccines = vaccine::all();
             //
             // dd($request->input());
@@ -168,6 +193,7 @@ class VaccineController extends Controller
             'date_taken'=>Carbon::now(),
             'expiration_date'=>$today->addDays(30)
         ])->save();
+        $this->removeOne($data->input('vaccine_id'));
     }
     /**
      * Display the specified resource.
