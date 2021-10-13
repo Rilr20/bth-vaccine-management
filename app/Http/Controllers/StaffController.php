@@ -33,7 +33,9 @@ class StaffController extends Controller
         //check if logged in
         $history = $this->getHistory(Auth::User()->id);
         $schedule = $this->getSchedule();
-        $vaccines = vaccine::all();
+        $vaccines = vaccine::select('id', 'vaccine_type', 'vaccine_name')->where([
+            ['count', ">", '0']
+        ])->get();
 
         return view('staff.index', ["title"=>$this->title, "history"=>$history, "schedule"=>$schedule, "vaccines" => $vaccines]);
     }
