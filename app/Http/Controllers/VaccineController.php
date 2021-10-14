@@ -68,6 +68,7 @@ class VaccineController extends Controller
     public function store(Request $request)
     {
         if ($request->input('vaccine_delivery') != null) {
+            #new delivery of vaccines
             $vaccines = vaccine::all();
             foreach ($vaccines as $vaccine) {
                 // echo $request->input($vaccine->id;
@@ -86,7 +87,7 @@ class VaccineController extends Controller
                 ]);
         }
         if ($request->input('create_vaccine') != null) {
-            # code...
+            # creates nnew vaccine
             $vaccine = new vaccine();
             $vaccine->vaccine_name = $request->input('vaccine_name');
             $vaccine->vaccine_type = $request->input('vaccine_type');
@@ -95,13 +96,9 @@ class VaccineController extends Controller
             $vaccine = vaccine::all();
             return view('vaccine.index', ["title" => $this->title, "vaccines" => $vaccine]);
         } else {
-            // echo "nu ska vi vaccinera!!!";
+            # nu ska vi vaccinera!!!
             $vaccines = vaccine::all();
-            //
-            // dd($request->input());
-            // $patient = new patient();
-            // $test = patient::all('id');
-            // dd($test);
+
             $patient_id = patient::select('id')->where('personnumber', $request->input('personnumber'))->first();
             // dd($patient_id->id);
             if ($patient_id == null) { //check if patients doesnt exists
