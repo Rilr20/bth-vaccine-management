@@ -2,7 +2,6 @@
 @section('title', $title ?? "no title")
 @section('content')
 <div class="staff-content">
-    <h2 class="center">All Vaccine</h2>
     {{-- <h2>Search</h2> --}}
     {{-- @php
         // dd($vaccine);
@@ -34,6 +33,8 @@
    
 
     {{-- <div class="vaccine-div"> --}}
+    <h2 class="center vaccine-header">All Vaccine</h2>
+
     <table>
         <thead>
             <th>Disease</th>

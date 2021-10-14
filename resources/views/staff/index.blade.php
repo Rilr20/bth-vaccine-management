@@ -7,9 +7,20 @@
     <p>Created at: {{Auth::user()->created_at}}</p>
     <div class="staff-history">
         <h3>History</h3>
+        <table>
+            <tr>
+                <th>Patient</th>
+                <th>Vaccine</th>
+                <th>Date</th>
+            </tr>
         @foreach ($history as $row)
-            <p class="history">patient {{$row->patient_id}}, vaccine {{$row->vaccine_id}}, {{$row->created_at}}</p>
+            <tr class="align">
+                <td>{{$row->patient_id}}</td>
+                <td>{{$row->vaccine_id}}</td>
+                <td>{{$row->created_at}}</td>
+            </tr>
         @endforeach
+        </table>
     </div>
     <h2>Upcoming</h2>
     <div class="staff-history">
