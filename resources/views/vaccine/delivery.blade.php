@@ -15,6 +15,9 @@
     {{-- <div class="vaccine-div"> --}}
         <form action="{{url("/vaccine")}}" method="POST">
             @csrf
+            <div class="delivery-button-div">
+                <input class="button delivery-button" type="submit" value="Confirm">
+            </div>
             <table>
                 <thead>
                     <th>Disease</th>
@@ -32,7 +35,7 @@
                     @endforeach
                 </table>
                 <input type="hidden" name="vaccine_delivery" value="true">
-                <input class="button" type="submit" value="Send">
+                
         </form>
 </div>
 

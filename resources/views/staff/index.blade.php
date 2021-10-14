@@ -32,6 +32,7 @@
                             @endif
                         @endforeach
                     </select>
+                    <input type="hidden" name="staff" value="staff">
                     <input type="hidden" name="staff" value="{{Auth::user()->id}}">
                     <input type="hidden" name="schedule" value="{{$row->id}}">
                     <input type="hidden" name="personnumber" value="{{$row->personnumber}}">

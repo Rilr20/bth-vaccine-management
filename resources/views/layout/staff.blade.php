@@ -50,6 +50,7 @@
 
                 <div class="link-list">
                     <h2>Staff</h2>
+                    <a href="{{url("/staff")}}">Your page</a>
                     <a href="{{url("/staff/list")}}">Staff List</a>
                     <h2>Vaccine info</h2>
                     <a href="{{url("/vaccine")}}">Vaccine Info</a>
