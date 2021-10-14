@@ -8,8 +8,9 @@ table {
     color:#f6f3f6;
 
     tr {
+
         height:50px;
-        background-color:#202020;
+        background-color:lighten(#202020, 5%);
         border-bottom:rgba(81, 110, 223, 0.3) 1px solid;
     }
 
@@ -23,6 +24,9 @@ table {
         background:#418a95;
         color:#f6f3f7; 
         }  
+}
+.align {
+    text-align: left;
 }
 .delivery-button-div {
     width: 30vw;
