@@ -1,5 +1,5 @@
 table { 
-    margin-top: 2em;
+    margin-top: 0.5em;
     margin-left: auto;
     margin-right: auto;
     width:30vw;
@@ -23,4 +23,15 @@ table {
         background:#418a95;
         color:#f6f3f7; 
         }  
+}
+.delivery-button-div {
+    width: 30vw;
+    margin: auto;
+}
+.delivery-button  {
+    display: block;
+    margin-left: auto;
+    margin-right: 1em;
+    // margin: auto;
+    margin-top: 1em;
 }
