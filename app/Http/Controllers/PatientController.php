@@ -127,13 +127,17 @@ class PatientController extends Controller
         // ]);
         $id = $this->patientExist($request);
         // echo $id->id;
-        if ($id != "Patient Credidentials Are wrong") {
-            schedule::make([
-                'patient'=> $id->id,//create staff it doesn't exist
-                'disease'=> $request->input('disease'),
-                'booked'=> $request->input('date')
-            ])->save();
-            return "The time you booked is: " . $request->input('date');
+        if ($id != "Patient Credidentials Are wrong" && $id != "Fill out the patient creditentials") {
+            if ($request->input('disease') != null) {
+                schedule::make([
+                    'patient'=> $id->id,//create staff it doesn't exist
+                    'disease'=> $request->input('disease'),
+                    'booked'=> $request->input('date')
+                ])->save();
+                return "The time you booked is: " . $request->input('date');
+            } else {
+                return "No vaccine selected";
+            }
         } else {
             return $id;
         }
