@@ -30,7 +30,7 @@
                         <td>{{$vaccine->vaccine_type}}</td>
                         <td>{{$vaccine->vaccine_name}}</td>
                         <td>{{$vaccine->count}}</td>
-                        <td><input type="number" name="{{$vaccine->id}}"></td>
+                        <td><input type="number" name="{{$vaccine->id}}" value="0" required></td>
                     </tr>
                     @endforeach
                 </table>

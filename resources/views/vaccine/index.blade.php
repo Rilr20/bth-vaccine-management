@@ -18,11 +18,11 @@
                 <h3>Add New Vaccine</h3>
                 <div class="input-div">
                     <label for="vaccine_type">Disease</label>
-                    <input class="input" name="vaccine_type"type="text">
+                    <input class="input" name="vaccine_type"type="text" required>
                 </div>
                 <div class="input-div">
                     <label for="vaccine_name">Vaccine name</label>
-                    <input class="input" name="vaccine_name"type="text">
+                    <input class="input" name="vaccine_name"type="text" required>
                 </div>
                 <input type="hidden" name="create_vaccine" value="true">
                 <button type="submit" class="login-button">Create</button>
